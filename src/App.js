@@ -45,6 +45,7 @@ class App {
     $controllerCover.append($controlOther, $controlPalette);
     this.palette = new Palette({
       $target: $controlPalette,
+      handleClick: this.handleClickColor,
     });
     this.controllers = new Controllers({
       $target: $controlOther,
@@ -70,6 +71,19 @@ class App {
     if(isFilling) {
       ctx.fillRect(0, 0, offsetWidth,  offsetHeight);
     }
+  }
+
+  handleClickColor = (event) => {
+    const $colors = this.palette.getColors();
+    Array.from($colors).forEach(
+      color => color.classList.remove("active")
+    );
+    
+    const color = event.target.style.backgroundColor;
+    const ctx = this.paintBoard.getCtx();
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    event.target.classList.add("active");
   }
 }
 
