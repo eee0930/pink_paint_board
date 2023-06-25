@@ -6,7 +6,7 @@ class PaintBoard {
     this.defaultSetting = defaultSetting;
     this.handleClickCanvas = handleClickCanvas;
     this.$canvas = createElement("canvas", "canvas");
-    this.ctx = this.$canvas.getContext("2d");
+    this.ctx;
     this.isPainting = false;
     this.render();
   }
@@ -29,6 +29,7 @@ class PaintBoard {
   }
 
   settingCtx = () => {
+    this.ctx = this.$canvas.getContext("2d");
     const localControl = localStorage.getItem(LOCAL_NAME);
     if(localControl) this.defaultSetting = JSON.parce(localControl);
     const { strokeStyle, lineWidth, fillStyle } = this.defaultSetting;
@@ -38,12 +39,14 @@ class PaintBoard {
   }
 
   addEventListeners = () => {
-    this.$canvas.addEventListener("mousemove", this.onMouseMove);
-    this.$canvas.addEventListener("mousedown", this.startPainting);
-    this.$canvas.addEventListener("mouseup", this.stopPainting);
-    this.$canvas.addEventListener("mouseleave", this.stopPainting);
-    this.$canvas.addEventListener("click", this.handleClickCanvas);
-    this.$canvas.addEventListener("contextmenu", this.handleCT);
+    if(this.$canvas) {
+      this.$canvas.addEventListener("mousemove", this.onMouseMove);
+      this.$canvas.addEventListener("mousedown", this.startPainting);
+      this.$canvas.addEventListener("mouseup", this.stopPainting);
+      this.$canvas.addEventListener("mouseleave", this.stopPainting);
+      this.$canvas.addEventListener("click", this.handleClickCanvas);
+      this.$canvas.addEventListener("contextmenu", this.handleCT);
+    }
   }
 
   onMouseMove = (event) => {

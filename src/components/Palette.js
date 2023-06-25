@@ -18,9 +18,10 @@ class Palette {
   }
 
   settingInitial = () => {
-    this.$colors = this.colors.map(color => {
+    this.$colors = this.colors.map((color, i) => {
       const $color = document.createElement("div");
       $color.className = "control_color jsColor";
+      if(i === 0) $color.classList.add("active");
       $color.style.backgroundColor = color;
       $color.addEventListener("click", this.handleClick);
       return $color;

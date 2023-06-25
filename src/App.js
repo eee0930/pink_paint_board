@@ -64,6 +64,9 @@ class App {
     return $saveBtn;
   }
 
+  /**
+   * for PaintBoard class
+   */
   handleClickCanvas = () => {
     const isFilling = this.controllers.getIsFilling();
     const ctx = this.paintBoard.getCtx();
@@ -73,6 +76,10 @@ class App {
     }
   }
 
+  /**
+   * for Palette class
+   * @param {*} event 
+   */
   handleClickColor = (event) => {
     const $colors = this.palette.getColors();
     Array.from($colors).forEach(
